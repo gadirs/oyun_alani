@@ -1,5 +1,24 @@
+
 var scenes = { preload: preload, create: create, update: update};
-var game = new Phaser.Game(1300, 700, Phaser.AUTO, 'HEFA', scenes);
+var game = new Phaser.Game(940, 650, Phaser.AUTO, 'HEFA', scenes);
+
+
+
+Blockly.Blocks['string_length'] = {
+  init: function() {
+    this.appendValueInput('VALUE')
+        .setCheck('String')
+        .appendField('length of');
+    this.setOutput(true, 'Number');
+    this.setColour(160);
+    this.setTooltip('Returns number of letters in the provided text.');
+    this.setHelpUrl('http://www.w3schools.com/jsref/jsref_length_string.asp');
+  }
+};
+
+
+
+
 
 function preload ()
 {
@@ -56,11 +75,10 @@ function create ()
     tent = this.add.isoSprite(100, 100, 0, 'tent', 0, isoGroup);
     tent.scale.setTo(0.5, 0.5);
 
-    player = this.add.isoSprite(-75, -40, 0, 'character', 0, isoGroup);
+    player = this.add.isoSprite(0, -10, 0, 'character', 0, isoGroup);
     player.scale.setTo(0.8, 0.8);
     player.anchor.set(0.5);
     game.physics.isoArcade.enable(player);
-    player.body.collideWorldBounds = true;
 
 
     tree = this.add.isoSprite(-171, 350, 0, 'tree', 0, isoGroup);
@@ -107,7 +125,7 @@ function update ()
             player.body.velocity.x = 0;
         }
 
-        else if (this.cursors.up.isDown && this.cursors.up.downDuration(95)) {
+        else if (this.cursors.up.isDown &&(player.body.position.x>=1) && this.cursors.up.downDuration(95)) {
             player.body.velocity.x = -speed;
         }
 
@@ -136,7 +154,7 @@ function update ()
             player.body.velocity.y = speed;
         }
 
-        else if (this.cursors.right.isDown && this.cursors.right.downDuration(95)) {
+        else if (this.cursors.right.isDown &&  (player.body.position.y>=-9) && this.cursors.right.downDuration(95)) {
             player.body.velocity.y = -speed;
         }
 
@@ -144,4 +162,29 @@ function update ()
             player.body.velocity.y = 0;
         }
 
+}
+
+
+
+
+
+
+/*function move_up(step) {
+    myGamePiece.speedY = -1 * step;
+}
+
+function move_down(step) {
+    myGamePiece.speedY = 1 * step;
+}
+
+function move_left(step) {
+    myGamePiece.speedX = -1.75 * step;
+}
+
+function move_right(step) {
+    myGamePiece.speedX = step * 1.75;
+}*/
+
+function clearmove() {
+    player.body.velocity.x = 0;
 }
