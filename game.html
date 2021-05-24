@@ -2,8 +2,62 @@
 	<head>
 		<script src="https://cdn.jsdelivr.net/npm/phaser-ce@2.11.0/build/phaser.js"></script>
 		<script src="https://rotates.org/phaser/iso/Isometric/dist/phaser-plugin-isometric.min.js"></script>
+		<script src="https://unpkg.com/blockly/blockly.min.js"></script>
 	</head>
 	<body>
+		
+
+
 		<script src="./gamee.js"></script>
+
+
+		<div>
+			<script src="./blockly_compressed.js"></script>
+			<script src="./blocks_compressed.js"></script>
+			<script src="./javascript_compressed.js"></script>
+			<script src="./msg/js/en.js"></script>
+			<script src="./blocks.js"></script>
+		</div>
+
+
+
+
+			<button onclick="startGame()" style="float: right;"><img src="images/stop.png" width="15" height="15"></button>
+
+        	<button onmousedown="runCode()" onmouseup="" ontouchstart="runCode()" style="float: right;"><img
+                src="images/flag.png" width="15" height="15"></button>
+
+
+		<div id="blocklyDiv" style="height: 600px; width: 422px; float:right"></div>
+
+			<xml id="toolbox" style="display: none">
+				<category name="Motion" colour=#4DC5C1>
+       				<block type="ileri"></block>
+        			<block type="geri"></block>
+        			<block type="saga_ilerle"></block>
+        			<block type="sola_ilerle"></block>
+        		</category>
+    		</xml>
+
+
+		<div>
+			<script>
+  				var workspace = Blockly.inject('blocklyDiv',
+      			{toolbox: document.getElementById('toolbox')});
+
+
+      			function runCode() {
+            		window.LoopTrap = 1000;
+            		var code = Blockly.JavaScript.workspaceToCode(workspace);
+            		Blockly.JavaScript.statementToCode(block, 'DO');
+            		Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+            try {
+                eval(code);
+            } catch (e) {
+                alert(e);
+            }
+        }
+			</script>
+		</div>
 	</body>
 </html>
