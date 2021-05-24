@@ -4,7 +4,7 @@ var game = new Phaser.Game(940, 650, Phaser.AUTO, 'HEFA', scenes);
 
 
 
-Blockly.Blocks['string_length'] = {
+/*Blockly.Blocks['string_length'] = {
   init: function() {
     this.appendValueInput('VALUE')
         .setCheck('String')
@@ -14,10 +14,10 @@ Blockly.Blocks['string_length'] = {
     this.setTooltip('Returns number of letters in the provided text.');
     this.setHelpUrl('http://www.w3schools.com/jsref/jsref_length_string.asp');
   }
-};
+};*/
 
 
-
+//#1 Oyun alanını oluşturmak
 
 
 function preload ()
@@ -110,7 +110,7 @@ function create ()
 
 }
 
-
+//#2 Karakterin klavye oklarıyla hareketini sağlamak
 
 function update ()
 {
@@ -187,4 +187,111 @@ function move_right(step) {
 
 function clearmove() {
     player.body.velocity.x = 0;
-}
+} //kırmızı butona basıldığında hareketin geri gitmesi (daha hazır değil)
+
+
+//#3 Custom bloklar oluşturmak (ileri, geri, sağa, sola hareket için)
+
+Blockly.Blocks['ileri'] = {
+  init: function() {
+    this.appendDummyInput()
+      .appendField("ileri git");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(0);
+    this.setTooltip('Returns number of letters in the provided text.');
+  }
+};
+
+Blockly.Blocks['geri'] = {
+  init: function() {
+    this.appendDummyInput()
+      .appendField("geri git");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(0);
+    this.setTooltip('Returns number of letters in the provided text.');
+  }
+};
+
+Blockly.Blocks['saga_ilerle'] = {
+  init: function() {
+    this.appendDummyInput()
+      .appendField("sağa git");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(0);
+    this.setTooltip('Returns number of letters in the provided text.');
+
+  }
+};
+
+Blockly.Blocks['sola_ilerle'] = {
+  init: function() {
+    this.appendDummyInput()
+      .appendField("sola git");
+    this.setPreviousStatement(true);
+    this.setNextStatement(true);
+    this.setColour(0);
+    this.setTooltip('Returns number of letters in the provided text.');
+  }
+};
+
+
+//#4 Yeşil bayrağa tıklanıldığında hareketlerin yapılması
+
+Blockly.JavaScript['ileri'] = function(block) {
+
+  if (((player.body.position.y<=130 && player.body.position.y>=18 && player.body.position.x<=60) || (player.body.position.y<=85 && player.body.position.y>=-10 && player.body.position.x>=410) || (player.body.position.y<=220 && player.body.position.y>=120 && player.body.position.x>=160 && player.body.position.x<=300) || (player.body.position.y>=220 && player.body.position.y<=480 && player.body.position.x>=260 && player.body.position.x<=320))){
+  } // oyun alanının dışarısına veya suyun ve s. üzerine çıkmaması için
+
+  else if (player.body.position.x<=480){
+    return "player.body.velocity.x = 3333;";
+  }
+};
+
+Blockly.JavaScript['geri'] = function(block) {
+
+  if (((player.body.position.y<=480 && player.body.position.y>=18 && player.body.position.x>=370 && player.body.position.x<=400) || (player.body.position.y>=475 && player.body.position.y<=550 && player.body.position.x<=150) || (player.body.position.y>=415 && player.body.position.y<=475 && player.body.position.x<=70) )){
+  }
+
+  else if (player.body.position.x>=1)
+    return "player.body.velocity.x = -3333;";
+};
+
+Blockly.JavaScript['saga_ilerle'] = function(block) {
+
+  if (((player.body.position.x>=475 && player.body.position.y<=130) || (player.body.position.y>=475 && player.body.position.x<=375 && player.body.position.x>=315) || (player.body.position.y>=200 && player.body.position.y<=280 && player.body.position.x<=315 && player.body.position.x>=210) || (player.body.position.y>=140 && player.body.position.y<=170 && player.body.position.x<=210 && player.body.position.x>=40) )){
+  }
+
+  else if(player.body.position.y>=-9)
+    return "player.body.velocity.y = -3333;";
+};
+
+Blockly.JavaScript['sola_ilerle'] = function(block) {
+
+  if (((player.body.position.y<=20 && player.body.position.x>=15 && player.body.position.x<=375) || (player.body.position.y>=400 && player.body.position.x>=0 && player.body.position.x<=20) || (player.body.position.y>=460 && player.body.position.x>=20 && player.body.position.x<=130))){
+  }
+
+  else if (player.body.position.y<=480)
+    return "player.body.velocity.y = 3333;";
+};
+
+//#5 Birden fazla blokla çalışabilmek (tam hazır değil - önünde bir bariyer olduğunda
+//ve birden fazla blok çalıştırıldığında hareket etmiyor)
+
+var workspace = Blockly.inject('blocklyDiv',
+            {toolbox: document.getElementById('toolbox')});
+
+
+
+            function tikla() {
+                window.LoopTrap = 1000;
+                var code = Blockly.JavaScript.workspaceToCode(workspace);
+                Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+            try {
+                eval(Blockly.JavaScript.workspaceToCode(workspace));
+            } catch (e) {
+                alert(e);
+            }
+        }
