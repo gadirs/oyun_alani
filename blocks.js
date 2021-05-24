@@ -68,17 +68,18 @@ Blockly.Blocks['sola_ilerle'] = {
 
 Blockly.JavaScript['ileri'] = function(block) {
 
-  if (((player.body.position.y<=130 && player.body.position.y>=18 && player.body.position.x<=60) || (player.body.position.y<=85 && player.body.position.y>=-10 && player.body.position.x>=460) || (player.body.position.y<=220 && player.body.position.y>=120 && player.body.position.x>=190 && player.body.position.x<=300) || (player.body.position.y>=220 && player.body.position.y<=480 && player.body.position.x>=300 && player.body.position.x<=350))){
+  if (((player.body.position.y<=130 && player.body.position.y>=18 && player.body.position.x<=60) || (player.body.position.y<=85 && player.body.position.y>=-10 && player.body.position.x>=410) || (player.body.position.y<=220 && player.body.position.y>=120 && player.body.position.x>=160 && player.body.position.x<=300) || (player.body.position.y>=220 && player.body.position.y<=480 && player.body.position.x>=260 && player.body.position.x<=320))){
 
   }
 
-  else if (player.body.position.x<=505)
+  else if (player.body.position.x<=480){
     return [player.body.velocity.x = 3333, Blockly.JavaScript.ORDER_ATOMIC];
+  }
 };
 
 Blockly.JavaScript['geri'] = function(block) {
 
-  if (((player.body.position.y<=480 && player.body.position.y>=18 && player.body.position.x>=370 && player.body.position.x<=400) || (player.body.position.y>=475 && player.body.position.y<=550 && player.body.position.x<=150) || (player.body.position.y>=415 && player.body.position.y<=475 && player.body.position.x<=50) )){
+  if (((player.body.position.y<=480 && player.body.position.y>=18 && player.body.position.x>=370 && player.body.position.x<=400) || (player.body.position.y>=475 && player.body.position.y<=550 && player.body.position.x<=150) || (player.body.position.y>=415 && player.body.position.y<=475 && player.body.position.x<=70) )){
     
   }
 
@@ -88,7 +89,7 @@ Blockly.JavaScript['geri'] = function(block) {
 
 Blockly.JavaScript['saga_ilerle'] = function(block) {
 
-  if (((player.body.position.x>=475 && player.body.position.y<=100) || (player.body.position.y>=475 && player.body.position.x<=375 && player.body.position.x>=315) || (player.body.position.y>=220 && player.body.position.y<=250 && player.body.position.x<=315 && player.body.position.x>=210) || (player.body.position.y>=130 && player.body.position.y<=150 && player.body.position.x<=210 && player.body.position.x>=40) )){
+  if (((player.body.position.x>=475 && player.body.position.y<=130) || (player.body.position.y>=475 && player.body.position.x<=375 && player.body.position.x>=315) || (player.body.position.y>=200 && player.body.position.y<=280 && player.body.position.x<=315 && player.body.position.x>=210) || (player.body.position.y>=140 && player.body.position.y<=170 && player.body.position.x<=210 && player.body.position.x>=40) )){
 
   }
 
@@ -102,7 +103,7 @@ Blockly.JavaScript['sola_ilerle'] = function(block) {
 
   }
 
-  else if (player.body.position.y<=505)
+  else if (player.body.position.y<=480)
     return [player.body.velocity.y = 3333, Blockly.JavaScript.ORDER_ATOMIC];
 };
 
